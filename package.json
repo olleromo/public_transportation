@@ -1,0 +1,27 @@
+{
+  "name": "public_transportation",
+  "version": "1.0.0",
+  "description": "FIXME",
+  "main": "src/clj/server.clj",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "browserify": "^13.0.0",
+    "foundation-sites": "^6.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^2.0.0",
+    "gulp-jasmine-phantom": "^3.0.0",
+    "gulp-modernizr": "^1.0.0-alpha",
+    "gulp-sass": "^2.2.0",
+    "touch": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
