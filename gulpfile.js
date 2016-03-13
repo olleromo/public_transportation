@@ -21,24 +21,12 @@ var config = {
 	paths: {
 	    html: './src/html/*.html',
 	    js: './src/js/*.js',
-            mainJs: './src/js/app.js',
+            mainJs: './src/js/*.js',
 	    images: './src/images/*.*',
 	    dist: './resources/public',
             sass: './src/sass/*.scss'
 	}
 };
-
-gulp.task('browserify', function () {
-  var browserified = transform(function(filename) {
-    var b = browserify(filename);
-    return b.bundle();
-  });
-  // hello gulp.src() my old friend
-  return gulp.src(['./src/**/*.js']) 
-    .pipe(browserified)
-    .pipe(uglify())
-    .pipe(gulp.dest(config.paths.dist + '/js'));
-});
 
 gulp.task('modernizr', function() {
   gulp.src('./js/*.js')
@@ -69,7 +57,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
-    browserify(config.paths.mainJs)
+    browserify(['./src/js/*.js', './node_modules/foundation-sites/dist/foundation.js'])
 	.bundle()
 	.on('error', console.error.bind(console))
 	.pipe(source('app.js'))
@@ -111,4 +99,4 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', , 'watch']); // 
-gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'browserify', 'watch', 'serve']);
+gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'watch', 'serve']);
