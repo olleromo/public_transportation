@@ -1,0 +1,49 @@
+As a [ROLE] I need to [WHAT] so that/because [WHY].
+
+
+[[http://www.nationalrail.co.uk/46391.aspx][National Rail Enquiries]]
+[[http://lite.realtime.nationalrail.co.uk/openldbws/][openldbws]] specification
+[[https://github.com/doedje/jquery.soap][jquery.soap]]
+[[http://www.w3schools.com/xml/xml_soap.asp][good_explanation_of_soap]] - simple object access protocol
+[[http://www.w3schools.com/xml/xml_wsdl.asp][good_explanation_of_WSDL]] - web services description language
+[[http://schemas.xmlsoap.org/wsdl/][wsdl_schema]] - the full wsdl schema 
+[[https://msdn.microsoft.com/en-us/library/aa468557.aspx][understanding_xml_schema]]
+
+
+
+
+* Depart and Arrive
+As a user I need to input departure location to arrival location  plus desired start time so that I can get a list of available departure and arrival time options.
+
+As a user I want to get help from Google location service to fill out the form
+As a user I want to be able to get departure times from my location even when I'm not online
+As a user I want to be able to supply a location from where I get departure alternatives
+
+
+
+* Functions
+** server
+
+
+** client
+*** form
+help with filling out location
+help with filling out destination
+datepickers
+departures get pre-fetched assuming current time for departure
+keep track of past 5 routes and auto update those in the background every 5 minutes 24 hours into the future
+keep updating and discarding in the background to local storage
+*** fields
+current location
+depart from
+arrive at
+date-time
+*** data
+5 last routes
+chunk of data containing the next 24 hours of times for the 5 last routes
+
+
+
+
+
+

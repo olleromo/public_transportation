@@ -11,14 +11,13 @@ As a [ROLE] I need to [WHAT] so that/because [WHY].
 
 
 
-* TODO
-get developer access code
-
 
 * Depart and Arrive
 As a user I need to input departure location to arrival location  plus desired start time so that I can get a list of available departure and arrival time options.
 
 As a user I want to get help from Google location service to fill out the form
+As a user I want to be able to get departure times from my location even when I'm not online
+As a user I want to be able to supply a location from where I get departure alternatives
 
 
 
@@ -27,8 +26,20 @@ As a user I want to get help from Google location service to fill out the form
 
 
 ** client
-form
-"help with getting the location filled out"
+*** form
+help with filling out location
+help with filling out destination
+datepickers
+departures get pre-fetched assuming current time for departure
+keep track of past 5 routes and auto update those in the background every 5 minutes
+keep updating and discarding in the background to local storage
+*** fields
+current location
+depart from
+arrive at
+date-time
+
+
 
 
 
