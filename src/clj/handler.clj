@@ -9,24 +9,20 @@
   []
   [:h2] (html/content "Train Schedules"))
 
-(html/deftemplate blog-template "html/blog.html"
+(html/deftemplate javascript_search "html/Javascript_Search.html"
   []
-  [:fake] (html/content ""))
-
-
+  [:fake] (html/content "")
+  )
+ 
 (defn index []
   (main-template))
 
-(defn blog []
-  (blog-template))
-
-(defn fetch-route [depart arrive time]
-  "fetch times from trafikverket API. Return JSON")
+(defn query []
+  (javascript_search))
    
 (defroutes app-routes
   (GET "/" [] (index))
-  (GET "/fetchroute" [req] (fetch-route req))
-  (GET "/blog" [] (blog))
+  (GET "/query" [] (query))
   (route/resources "resources/public")
   (route/not-found "Not Found"))
  

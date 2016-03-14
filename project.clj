@@ -13,7 +13,7 @@
                  [cheshire "5.5.0"]
                  [org.xerial/sqlite-jdbc "3.7.2"]]
   :plugins [[lein-ring "0.9.7"]]
-  :main clj.server
+;;  :main clj.server
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})

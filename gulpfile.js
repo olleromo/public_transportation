@@ -1,11 +1,8 @@
 "use strict";
 
-
-
-
 var gulp = require('gulp');
 var browserify = require('browserify'); // Bundles JS
-var transform = require('vinyl-transform');
+//var transform = require('vinyl-transform');
 var uglify = require('gulp-uglify');
 var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
 //var concat = require('gulp-concat'); //Concatenates files
@@ -16,12 +13,11 @@ var jasmine = require('gulp-jasmine-phantom');
 var modernizr = require('gulp-modernizr');
 var touch = require("touch");
 
-
 var config = {
 	paths: {
 	    html: './src/html/*.html',
 	    js: './src/js/*.js',
-            mainJs: './src/js/*.js',
+            mainJs: './src/js/app.js',
 	    images: './src/images/*.*',
 	    dist: './resources/public',
             sass: './src/sass/*.scss'
@@ -57,14 +53,14 @@ gulp.task('html', function() {
 });
 
 gulp.task('js', function() {
-    browserify(['./src/js/*.js', './node_modules/foundation-sites/dist/foundation.js'])
+    browserify(config.paths.mainJs)
 	.bundle()
 	.on('error', console.error.bind(console))
 	.pipe(source('app.js'))
 	.pipe(gulp.dest(config.paths.dist + '/js'));
     // console.log("js done");
 });
-
+ 
 gulp.task('sass', function() {
     gulp.src(config.paths.sass)
         .pipe(sass({
