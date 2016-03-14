@@ -21,10 +21,13 @@
   </head>
   <body>
     <div>
-      <input id="station" type="text" />
+      <input id="station-from" placeholder="From" type="text" />
+      <input id="station-to" placeholder="To" type="text" />
+      <input id="interval" placeholder="Next hour(s)" type="text" />
       <input type="button" value="Find" onclick="Search()" />
       <span id="loader" style="margin-left: 10px">Loading ...</span>
     </div>
+
     <div id="result">
       <h3>Departing Trains</h3>
       <table border="1" id="timeTableDeparture">

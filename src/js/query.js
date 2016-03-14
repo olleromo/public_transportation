@@ -1,5 +1,6 @@
 
 //var Stations = new Array();
+var db = new PouchDB('todos');
 var stations = [];
 $(document).ready(function () {
     $.support.cors = true; // Enable Cross domain requests
@@ -33,6 +34,21 @@ $(document).ready(function () {
     console.log('Storage doesn\'t exist'); 
     };
 
+    // PouchDB stuff --------------------------------------------
+    // function addTodo(text) {
+    //     var todo = {
+    //         _id: new Date().toISOString(),
+    //         title: text,
+    //         completed: false
+    //     };
+    //     db.put(todo, function callback(err, result) {
+    //         if (!err) {
+    //             console.log('Successfully posted a todo!');
+    //         }
+    //     });
+    // };
+    // addTodo ('savin');
+    
 });
 
 function PreloadTrainStations() {
@@ -80,8 +96,9 @@ function PreloadTrainStations() {
 
 function fillSearchWidget(data) {
 //    console.log ('data: ' + data);
-    $("#station").val("");
-    $("#station").autocomplete({
+    $("#station-from").val("");
+    $("#station-to").val("");    
+    $("#station-from").autocomplete({
         // Make the autocomplete fill with matches that "starts with" only
         source: function (request, response) {
             var matches = $.map(data, function (tag) {
@@ -96,25 +113,54 @@ function fillSearchWidget(data) {
         },
         select: function (event, ui) {
             var selectedObj = ui.item;
-            $("#station").val(selectedObj.label);
+            $("#station-from").val(selectedObj.label);
             // Save selected stations signature
-            $("#station").data("sign", selectedObj.value);
+            $("#station-from").data("sign", selectedObj.value);
             return false;
         },
         focus: function (event, ui) {
             var selectedObj = ui.item;
             // Show station name in search field
-            $("#station").val(selectedObj.label);
+            $("#station-from").val(selectedObj.label);
+            return false;
+        }
+    });
+
+    $("#station-to").autocomplete({
+        // Make the autocomplete fill with matches that "starts with" only
+        source: function (request, response) {
+            var matches = $.map(data, function (tag) {
+                if (tag.label.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
+                    return {
+                        label: tag.label,
+                        value: tag.value
+                    }
+                }
+            });
+            response(matches);
+        },
+        select: function (event, ui) {
+            var selectedObj = ui.item;
+            $("#station-to").val(selectedObj.label);
+            // Save selected stations signature
+            $("#station-to").data("sign", selectedObj.value);
+            return false;
+        },
+        focus: function (event, ui) {
+            var selectedObj = ui.item;
+            // Show station name in search field
+            $("#station-to").val(selectedObj.label);
             return false;
         }
     });
 }
 
 window.Search = function Search() {
-    var sign = $("#station").data("sign");
+    var from = $("#station-from").data("sign");
+    var to = $ ("#station-to").data ("sign");
     // Clear html table
     $('#timeTableDeparture tr:not(:first)').remove();
-    
+
     // Request to load announcements for a station by its signature
     var xmlRequest = "<REQUEST version='1.0'>" +
         "<LOGIN authenticationkey='668a9ad34dfb4736880a8ce55c9a5f38' />" +
@@ -124,17 +170,16 @@ window.Search = function Search() {
         "<AND>" +
         "<OR>" +
         "<AND>" +
-//        "<EQ name='ToLocation' value='Märsta' />" +
         "<GT name='AdvertisedTimeAtLocation' " +
         "value='$dateadd(-00:15:00)' />" +
         "<LT name='AdvertisedTimeAtLocation' " +
-        "value='$dateadd(1:00:00)' />" +
+        "value='$dateadd(10:00:00)' />" +
         "</AND>" +
         "<GT name='EstimatedTimeAtLocation' value='$now' />" +
         "</OR>" +
-        "<EQ name='LocationSignature' value='" + sign + "' />" +
+        "<EQ name='LocationSignature' value='" + from + "' />" +
         "<EQ name='ActivityType' value='Avgang' />" +
-
+        "<EQ name='ToLocation' value='" + to + "' />" +
         "</AND>" +
         "</FILTER>" +
         // Just include wanted fields to reduce response size.
