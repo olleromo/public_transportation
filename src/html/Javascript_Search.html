@@ -1,35 +1,31 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title></title>
+     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initital-scale=1"/>
+    <title>Train Time FInder</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-    <style>
-      table
-      {
-      border: 1px solid #000000;
-      border-collapse: collapse;
-      border-spacing: 0px;
-      }
-      table td
-      {
-      padding: 8px 8px;
-      }
-    </style>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/app.css">
   </head>
+  
   <body>
-    <div>
+    <div class="top-bar">
+      <div>
+        <strong class="centered">Train Time Finder</strong>
+        </div>
+      </div>
+    <div class="content headroom">
       <input id="station-from" placeholder="From" type="text" />
       <input id="station-to" placeholder="To" type="text" />
-      <input id="interval" placeholder="Next hour(s)" type="text" />
-      <input type="button" value="Find" onclick="Search()" />
+      <div class="row">
+        <input id="interval" placeholder="Within the next hour(s)" type="text" />
+        <button type="button" class="success expanded hollow button" value="Find" onclick="Search()">Find</button>
+      </div>
       <span id="loader" style="margin-left: 10px">Loading ...</span>
     </div>
-
+    
     <div id="result">
-      <h3>Departing Trains</h3>
+      <!-- <h3>Departing Trains</h3> -->
       <table border="1" id="timeTableDeparture">
         <tr>
           <th scope="col" style="width:40px;">Time</th>
@@ -39,5 +35,9 @@
         </tr>
       </table>
     </div>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="js/app.js"></script>
   </body>
+  
 </html>

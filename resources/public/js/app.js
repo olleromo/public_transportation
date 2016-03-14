@@ -13535,7 +13535,9 @@ function fillSearchWidget(data) {
 
 window.Search = function Search() {
     var from = $("#station-from").data("sign");
-    var to = $ ("#station-to").data ("sign");
+    var to = $("#station-to").data("sign");
+    var hours = $ ("#interval").val();
+    console.log('hours: ' + hours);
     // Clear html table
     $('#timeTableDeparture tr:not(:first)').remove();
 
@@ -13551,7 +13553,7 @@ window.Search = function Search() {
         "<GT name='AdvertisedTimeAtLocation' " +
         "value='$dateadd(-00:15:00)' />" +
         "<LT name='AdvertisedTimeAtLocation' " +
-        "value='$dateadd(10:00:00)' />" +
+        "value='$dateadd(" + hours + ":00:00)' />" +
         "</AND>" +
         "<GT name='EstimatedTimeAtLocation' value='$now' />" +
         "</OR>" +

@@ -3457,3 +3457,9 @@ table.hover tr:nth-of-type(even):hover {
 
 .clearfix::after {
   clear: both; }
+
+.headroom {
+  margin: 2px 0 0 0; }
+
+.centered {
+  text-align: center; }
