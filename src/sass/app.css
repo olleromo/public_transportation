@@ -1,22 +1,29 @@
 /*
-Error: File to import not found or unreadable: settings/settings.
-        on line 2 of /Users/or/UDACITY/public_transportation/src/sass/app.scss
-
-1: /* @import '/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/assets/foundation.scss'; *\/
-2: @import "settings/settings";
-3: @import "foundation";
-4:  
-5: .stuff {
-6:     width: 10px;
-7: }
+Error: File to import not found or unreadable: util/util.
+        on line 43 of /Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/settings/_settings.scss
+        from line 1 of /Users/or/UDACITY/public_transportation/src/sass/app.scss
 
 Backtrace:
-/Users/or/UDACITY/public_transportation/src/sass/app.scss:2
+/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/settings/_settings.scss:43
+/Users/or/UDACITY/public_transportation/src/sass/app.scss:1
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/import_node.rb:37:in `css_import?'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:311:in `visit_import'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:79:in `block in with_base'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:115:in `with_frame'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:79:in `with_base'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:326:in `block (2 levels) in visit_import'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:326:in `map'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:326:in `block in visit_import'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:88:in `block in with_import'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:115:in `with_frame'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:88:in `with_import'
+/Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:323:in `visit_import'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
 /Users/or/.rvm/gems/ruby-2.2.1/gems/sass-3.4.21/lib/sass/stack.rb:79:in `block in with_base'
@@ -51,4 +58,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: settings/settings.\A         on line 2 of /Users/or/UDACITY/public_transportation/src/sass/app.scss\A \A 1: /* @import '/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/assets/foundation.scss'; */\A 2: @import \"settings/settings\";\A 3: @import \"foundation\";\A 4:  \A 5: .stuff {\A 6:     width: 10px;\A 7: }"; }
+  content: "Error: File to import not found or unreadable: util/util.\A         on line 43 of /Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/settings/_settings.scss\A         from line 1 of /Users/or/UDACITY/public_transportation/src/sass/app.scss"; }

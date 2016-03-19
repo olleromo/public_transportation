@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-     <meta charset="utf-8"/>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initital-scale=1"/>
     <title>Train Time FInder</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
@@ -14,7 +14,7 @@
         <strong class="centered">Train Time Finder</strong>
         </div>
       </div>
-    <div class="content headroom">
+    <div id="content" class=" headroom">
       <input id="station-from" placeholder="From" type="text" />
       <input id="station-to" placeholder="To" type="text" />
       <div class="row">
@@ -23,6 +23,7 @@
       </div>
       <span id="loader" style="margin-left: 10px">Loading ...</span>
     </div>
+    <div id="messagedisplay" class="message"></div>
     
     <div id="result">
       <!-- <h3>Departing Trains</h3> -->

@@ -24,20 +24,15 @@ As a user I want to be able to supply a location from where I get departure alte
 * Functions
 ** server
 
-
 ** client
 *** form
-help with filling out location
-help with filling out destination
-datepickers
-departures get pre-fetched assuming current time for departure
-keep track of past 5 routes and auto update those in the background every 5 minutes
+
+keep track of past 5 routes and auto update those in the background every 5 minutes 24 hours into the future
 keep updating and discarding in the background to local storage
-*** fields
-current location
-depart from
-arrive at
-date-time
+
+*** data
+5 last routes
+chunk of data containing the next 24 hours of times for the 5 last routes
 
 
 
