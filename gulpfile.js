@@ -13,6 +13,7 @@ var browserSync = require('browser-sync').create();
 var modernizr = require('gulp-modernizr');
 var touch = require("touch");
 var minify = require("gulp-minify");
+var cleanCSS = require('gulp-clean-css');
 
 var config = {
 	paths: {
@@ -65,7 +66,7 @@ gulp.task('js', function() {
 gulp.task('js-minify', function() {
     gulp.src(config.paths.dist + '/js/*')
         .pipe(minify({
-            ignoreFiles: ['-min.js']
+            ignoreFiles: ['*-min.js']
         }))
         .pipe(gulp.dest(config.paths.dist + '/js'))
 });
@@ -79,8 +80,16 @@ gulp.task('sass', function() {
         .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
-// Migrates images to dist folder
-// Note that I could even optimize my images here
+gulp.task('css-minify', function() {
+  return gulp.src(config.paths.dist + '/css/*.css')
+        .pipe(cleanCSS({compatibility: 'ie8',
+                        debug: true}, function(details){
+                            console.log(details.name + ': ' + details.stats.originalSize);
+                            console.log(details.name + ': ' + details.stats.minifiedSize);
+                        }))
+        .pipe(gulp.dest(config.paths.dist + '/css/min'));
+});
+
 gulp.task('images', function () {
     gulp.src(config.paths.images)
         .pipe(gulp.dest(config.paths.dist + '/images'));
@@ -104,4 +113,4 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', , 'watch']); // 
-gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'watch', 'serve']);
+gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'watch', 'css-minify', 'serve']);
