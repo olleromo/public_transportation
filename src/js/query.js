@@ -234,7 +234,7 @@ function getStoredResponse(from, to, hours) {
         renderTrainAnnouncement(filterResponse(lockr.get(from).result, to, hours));
     };
 };
-
+ 
 function saveResponse(from, res) {
     lockr.set(from, {result: res, date: new Date});
     console.log('saveResponse: ' + from);

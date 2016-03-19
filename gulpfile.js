@@ -9,9 +9,10 @@ var source = require('vinyl-source-stream'); // Use conventional text streams wi
 var lint = require('gulp-eslint'); //Lint JS files, including JSX
 var sass = require('gulp-sass'); //sass
 var browserSync = require('browser-sync').create();
-var jasmine = require('gulp-jasmine-phantom');
+// var jasmine = require('gulp-jasmine-phantom');
 var modernizr = require('gulp-modernizr');
 var touch = require("touch");
+var minify = require("gulp-minify");
 
 var config = {
 	paths: {
@@ -30,13 +31,13 @@ gulp.task('modernizr', function() {
     .pipe(gulp.dest("build/"))
 });
 
-gulp.task('tests', function () {
-    gulp.src('tests/spec/extraSpec.js')
-        .pipe(jasmine({
-            integration: true,
-            vendor: 'js/**/*.js'
-        }));
-});
+// gulp.task('tests', function () {
+//     gulp.src('tests/spec/extraSpec.js')
+//         .pipe(jasmine({
+//             integration: true,
+//             vendor: 'js/**/*.js'
+//         }));
+// });
 
 gulp.task('serve', function () {
     browserSync.init({
@@ -58,7 +59,15 @@ gulp.task('js', function() {
 	.on('error', console.error.bind(console))
 	.pipe(source('app.js'))
 	.pipe(gulp.dest(config.paths.dist + '/js'));
-    // console.log("js done");
+         console.log("js done");
+});
+
+gulp.task('js-minify', function() {
+    gulp.src(config.paths.dist + '/js/*')
+        .pipe(minify({
+            ignoreFiles: ['-min.js']
+        }))
+        .pipe(gulp.dest(config.paths.dist + '/js'))
 });
  
 gulp.task('sass', function() {
@@ -95,4 +104,4 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', , 'watch']); // 
-gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'watch', 'serve']);
+gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'watch', 'serve']);
