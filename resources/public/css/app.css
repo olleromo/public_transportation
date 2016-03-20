@@ -3468,3 +3468,6 @@ table.hover tr:nth-of-type(even):hover {
   text-align: center;
   background: #eff;
   font-size: 0.9em; }
+
+.ui-helper-hidden-accessible {
+  display: none; }

@@ -4,7 +4,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initital-scale=1"/>
     <title>Train Time FInder</title>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="css/offline-theme-slide.css">
+    <link rel="stylesheet" href="css/offline-language-english.css">
     <link rel="stylesheet" href="css/min/app.css">
   </head>
   
@@ -18,7 +20,7 @@
       <input id="station-from" placeholder="From" type="text" />
       <input id="station-to" placeholder="To" type="text" />
       <div class="row">
-        <input id="interval" placeholder="Within the next hour(s)" type="text" />
+        <input id="interval" placeholder="Within the next hour(s)" type="number" />
         <button type="button" class="success expanded hollow button" value="Find" onclick="Search()">Find</button>
       </div>
       <span id="loader" style="margin-left: 10px">Loading ...</span>
@@ -37,7 +39,8 @@
       </table>
     </div>
     <script src="js/jquery-1.12.1-min.js"></script>
-    <script src="js/jquery-ui-min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/offline.min.js"></script>
     <script src="js/app-min.js"></script>
   </body>
   

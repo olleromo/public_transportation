@@ -179,7 +179,9 @@
     javascript_search = require ('/Users/or/UDACITY/public_transportation/src/js/query.js');
 
     console.log('app.js loaded');
-    
+    Offline.options = {checks: {xhr: {url: '/connection-test'}}};
+
+    $(".ui-helper-hidden-accessible").children("div").text(" ");
     
 })(jQuery);
   
@@ -295,6 +297,10 @@ function fillSearchWidget(data) {
             // Show station name in search field
             $("#station-from").val(selectedObj.label);
             return false;
+        },
+        create: function (e) {
+            $(this).prev('.ui-helper-hidden-accessible').remove();
+            console.log('trying to remove');
         }
     });
 
@@ -323,6 +329,10 @@ function fillSearchWidget(data) {
             // Show station name in search field
             $("#station-to").val(selectedObj.label);
             return false;
+        },
+        create: function (e) {
+            $(this).prev('.ui-helper-hidden-accessible').remove();
+            console.log('trying to remove');
         }
     });
 }
@@ -386,7 +396,7 @@ function loadNetworkData(from) {
 window.Search = function Search() {
     var from = $("#station-from").data("sign");
     var to = $("#station-to").data("sign");
-    var hours = $ ("#interval").val();
+    var hours = $ ("#interval").val().toString();
     // Clear html table
     $('#timeTableDeparture tr:not(:first)').remove();
     getStoredResponse(from, to, hours);
@@ -442,9 +452,11 @@ function filterResponse(res, to, hours) {
     });
     return resp;
 }
- 
+  
 function renderTrainAnnouncement(announcement) {
     var Sts = lockr.get('stations');
+    console.log('announcement.length: ' + announcement);
+    if(announcement.length() == 0) messageDisplay("No results found");
     $(announcement).each(function (iterator, item) {
         var advertisedtime = new Date(item.AdvertisedTimeAtLocation);
         var hours = advertisedtime.getHours()
@@ -468,7 +480,7 @@ function renderTrainAnnouncement(announcement) {
 }
 
 function messageDisplay(str) {
-    jQuery("#messagedisplay").html(str);
+    $("#messagedisplay").html(str);
 }
 
 

@@ -7,7 +7,9 @@
     javascript_search = require ('/Users/or/UDACITY/public_transportation/src/js/query.js');
 
     console.log('app.js loaded');
-    
+    Offline.options = {checks: {xhr: {url: '/connection-test'}}};
+
+    $(".ui-helper-hidden-accessible").children("div").text(" ");
     
 })(jQuery);
   
