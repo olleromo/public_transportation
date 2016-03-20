@@ -5,7 +5,7 @@ An app for finding train schedules in Sweden. It's part of the Udacity Senior We
 
 ## Prerequisites
 
-The backend in Clojure so if you want to run this you will need [Leiningen][] 2.0.0 or above installed.
+The backend is Clojure so if you want to run this you will need [Leiningen][] 2.0.0 or above installed.
 
 [leiningen]: https://github.com/technomancy/leiningen
 
