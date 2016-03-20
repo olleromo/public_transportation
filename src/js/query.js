@@ -8,11 +8,12 @@ $(document).ready(function () {
             url: "http://api.trafikinfo.trafikverket.se/v1/data.json",
             error: function (msg) {
                 if (msg.statusText == "abort") return;
-                alert("Request failed: " + msg.statusText + "\n" + msg.responseText);
+                //                alert("Request failed: " + msg.statusText + "\n" + msg.responseText);
+                messageDisplay("No network connection");
             }
         });
     }
-    catch (e) { alert("An error ocurred while initializing."); }
+    catch (e) { messageDisplay("An error ocurred while initializing."); }
     // Create an ajax loading indicator
     var loadingTimer;
     $("#loader").hide();
@@ -25,15 +26,8 @@ $(document).ready(function () {
         $("#loader").hide();
     });
     // Load stations
+//    messageDisplay("preloading stuff");
     PreloadTrainStations();
-
-    // if(typeof(localStorage) !== "undefined") {
-    //     console.log('Storage exists');
-    // } else {
-    // console.log('Storage doesn\'t exist'); 
-    // };
-
-    
 });
 
 function PreloadTrainStations() {
@@ -111,7 +105,7 @@ function fillSearchWidget(data) {
         },
         create: function (e) {
             $(this).prev('.ui-helper-hidden-accessible').remove();
-            console.log('trying to remove');
+    //        console.log('trying to remove');
         }
     });
 
@@ -143,7 +137,7 @@ function fillSearchWidget(data) {
         },
         create: function (e) {
             $(this).prev('.ui-helper-hidden-accessible').remove();
-            console.log('trying to remove');
+  //          console.log('trying to remove');
         }
     });
 }
@@ -213,11 +207,9 @@ window.Search = function Search() {
     getStoredResponse(from, to, hours);
 };
 
-function noDeparturesFoundWarning(str) {
-    jQuery("#timeTableDeparture tr:last").after("<tr><td colspan='4'>" + str + "</td></tr>");
-};
-
 function getStoredResponse(from, to, hours) {
+//    Offline.check();
+//    console.log('offline is: ' + Offline.state);
     var res = lockr.get(from);
     var now = new Date;
     var hoursToMsecs = hours * (60 * 60 * 1000);
@@ -233,7 +225,8 @@ function getStoredResponse(from, to, hours) {
         }).catch(function(err){
             lockr.set(from, "");
             console.log('err: ' + err);
-            noDeparturesFoundWarning("No departures were found");
+            messageDisplay2('Something bad happened');
+
         });
     }
     else {
@@ -249,7 +242,7 @@ function saveResponse(from, res) {
 };
 
 function filterResponse(res, to, hours) {
-    var resp = [];
+    var resp = new Array();
     var nowTime = new Date().getTime();
     var hoursTime = hours * (60 * 60 * 1000);
     
@@ -266,8 +259,8 @@ function filterResponse(res, to, hours) {
   
 function renderTrainAnnouncement(announcement) {
     var Sts = lockr.get('stations');
-    console.log('announcement.length: ' + announcement);
-    if(announcement.length() == 0) messageDisplay("No results found");
+    console.log('announcement.length: ' + announcement.length);
+    if(announcement.length === 0) {messageDisplay2("No results found")} else {messageDisplay2("")};
     $(announcement).each(function (iterator, item) {
         var advertisedtime = new Date(item.AdvertisedTimeAtLocation);
         var hours = advertisedtime.getHours()
@@ -291,7 +284,11 @@ function renderTrainAnnouncement(announcement) {
 }
 
 function messageDisplay(str) {
-    $("#messagedisplay").html(str);
+    $("#messagedisplay").text(str);
+}
+
+function messageDisplay2(str) {
+    $("#messagedisplay2").text(str);
 }
 
 

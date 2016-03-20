@@ -4,9 +4,10 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initital-scale=1"/>
     <title>Train Time FInder</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
-    <link rel="stylesheet" href="css/offline-theme-slide.css">
-    <link rel="stylesheet" href="css/offline-language-english.css">
+    <!-- <link rel="stylesheet" href="css/offline-theme-slide.css"> -->
+    <!-- <link rel="stylesheet" href="css/offline-language-english.css"> -->
     <link rel="stylesheet" href="css/min/app.css">
   </head>
   
@@ -23,9 +24,10 @@
         <input id="interval" placeholder="Within the next hour(s)" type="number" />
         <button type="button" class="success expanded hollow button" value="Find" onclick="Search()">Find</button>
       </div>
-      <span id="loader" style="margin-left: 10px">Loading ...</span>
+      <span id="loadingDiv" style="margin-left: 10px">Loading ...</span>
     </div>
     <div id="messagedisplay" class="message"></div>
+    <div id="messagedisplay2" class="message"></div>
     
     <div id="result">
       <!-- <h3>Departing Trains</h3> -->
@@ -39,9 +41,10 @@
       </table>
     </div>
     <script src="js/jquery-1.12.1-min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/offline.min.js"></script>
-    <script src="js/app-min.js"></script>
+    <!-- <script src="js/jquery-ui.min.js"></script> -->
+    <script   src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"   integrity="sha256-0vBSIAi/8FxkNOSKyPEfdGQzFDak1dlqFKBYqBp1yC4="   crossorigin="anonymous"></script>
+    <!-- <script src="js/offline.min.js"></script> -->
+    <script src="js/app.js"></script>
   </body>
   
   
