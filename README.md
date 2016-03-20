@@ -1,10 +1,11 @@
-# public_transportation
+# Swedish Train Schedules
 
-FIXME
+An app for finding train schedules in Sweden. It's part of the Udacity Senior Web Dev nano degree.
+
 
 ## Prerequisites
 
-You will need [Leiningen][] 2.0.0 or above installed.
+The backend in Clojure so if you want to run this you will need [Leiningen][] 2.0.0 or above installed.
 
 [leiningen]: https://github.com/technomancy/leiningen
 
@@ -12,8 +13,13 @@ You will need [Leiningen][] 2.0.0 or above installed.
 
 To start a web server for the application, run:
 
-    lein ring server
+    lein repl
 
-## License
+    => (-main)
 
-Copyright © 2016 FIXME
+and you should have a server running on port 3000
+
+But - much simpler - You can see what it does if you go to [http://107.170.163.81:3000/] (http://107.170.163.81:3000/)
+
+
+
