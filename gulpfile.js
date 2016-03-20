@@ -68,7 +68,8 @@ gulp.task('js-minify', function() {
         .pipe(minify({
             ignoreFiles: ['*-min.js']
         }))
-        .pipe(gulp.dest(config.paths.dist + '/js'))
+        .pipe(gulp.dest(config.paths.dist + '/js'));
+    console.log('js minified');
 });
  
 gulp.task('sass', function() {
@@ -107,10 +108,10 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
-    gulp.watch(config.paths.js, ['js', 'lint']);
-    gulp.watch(config.paths.sass, ['sass']);
+    gulp.watch(config.paths.js, ['js', 'lint', 'js-minify']);
+    gulp.watch(config.paths.sass, ['sass', 'css-minify']);
 //    gulp.watch('./src/clj/*.clj', ['clj']);
 });
 
 // gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', , 'watch']); // 
-gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'watch', 'css-minify', 'serve']);
+gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'css-minify', 'watch', 'serve']);

@@ -28,7 +28,7 @@
     //             console.log('offline signals down: ' + event);
     //         };
     //     };
-
+   
     var $loading = $('#loadingDiv').hide();
 
     $(document)

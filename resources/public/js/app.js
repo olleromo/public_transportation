@@ -200,7 +200,7 @@
     //             console.log('offline signals down: ' + event);
     //         };
     //     };
-
+   
     var $loading = $('#loadingDiv').hide();
 
     $(document)
@@ -243,8 +243,12 @@ $(document).ready(function () {
         $("#loader").hide();
     });
     // Load stations
-//    messageDisplay("preloading stuff");
     PreloadTrainStations();
+
+    // clear input fields when reselected
+    $('#station-from').focus(function() { $(this).val('')});
+    $('#station-to').focus(function() { $(this).val('')});
+    $('#interval').focus(function() { $(this).val('')});
 });
 
 function PreloadTrainStations() {
