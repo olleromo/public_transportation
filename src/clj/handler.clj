@@ -21,8 +21,8 @@
   (javascript_search))
    
 (defroutes app-routes
-  (GET "/" [] (index))
-  (GET "/query" [] (query))
+  (GET "/" [] (query))
+;;  (GET "/query" [] (query))
   (GET "/connection-test" [] "success")
   (route/resources "resources/public")
   (route/not-found "Not Found"))
