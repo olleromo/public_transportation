@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var browserify = require('browserify'); // Bundles JS
 //var transform = require('vinyl-transform');
-var uglify = require('gulp-uglify');
+//var uglify = require('gulp-uglify');
 var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
 //var concat = require('gulp-concat'); //Concatenates files
 var lint = require('gulp-eslint'); //Lint JS files, including JSX
