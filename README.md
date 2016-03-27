@@ -11,7 +11,7 @@ The backend is Clojure so if you want to run this you will need [Leiningen][] 2.
 
 ## Running
 
-Do
+Do:
         npm install
 
 to pull in the javascript dependencies.
