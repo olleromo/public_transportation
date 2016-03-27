@@ -11,11 +11,9 @@ The backend is Clojure so if you want to run this you will need [Leiningen][] 2.
 
 ## Running
 
-Do:
+Pull in the javascript dependencies with
 
     npm install
-
-to pull in the javascript dependencies.
 
 To start a Clojure web server, do:
 
