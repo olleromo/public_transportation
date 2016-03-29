@@ -1,15 +1,12 @@
 "use strict";
 
 var gulp = require('gulp');
-var browserify = require('browserify'); // Bundles JS
-//var transform = require('vinyl-transform');
+var browserify = require('browserify'); 
 var uglify = require('gulp-uglify');
-var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
-//var concat = require('gulp-concat'); //Concatenates files
-var lint = require('gulp-eslint'); //Lint JS files, including JSX
-var sass = require('gulp-sass'); //sass
+var source = require('vinyl-source-stream'); 
+var lint = require('gulp-eslint'); 
+var sass = require('gulp-sass'); 
 var browserSync = require('browser-sync').create();
-// var jasmine = require('gulp-jasmine-phantom');
 var modernizr = require('gulp-modernizr');
 var touch = require("touch");
 var minify = require("gulp-minify");
@@ -31,14 +28,6 @@ gulp.task('modernizr', function() {
     .pipe(modernizr())
     .pipe(gulp.dest("build/"))
 });
-
-// gulp.task('tests', function () {
-//     gulp.src('tests/spec/extraSpec.js')
-//         .pipe(jasmine({
-//             integration: true,
-//             vendor: 'js/**/*.js'
-//         }));
-// });
 
 gulp.task('serve', function () {
     browserSync.init({
@@ -75,9 +64,9 @@ gulp.task('js-minify', function() {
 gulp.task('sass', function() {
     gulp.src(config.paths.sass)
         .pipe(sass({
-            includePaths: ['/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/assets/',
-                           '/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/settings/',
-                          '/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/']}))
+            includePaths: ['node_modules/foundation-sites/assets/',
+                           'node_modules/foundation-sites/scss/settings/',
+                          'node_modules/foundation-sites/scss/']}))
         .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
@@ -110,8 +99,6 @@ gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint', 'js-minify']);
     gulp.watch(config.paths.sass, ['sass', 'css-minify']);
-//    gulp.watch('./src/clj/*.clj', ['clj']);
 });
 
-// gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', , 'watch']); // 
 gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'css-minify', 'watch', 'serve']);
