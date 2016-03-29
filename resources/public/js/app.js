@@ -173,7 +173,7 @@
 (function ($) {
 
     lockr = require ('lockr');
-    javascript_search = require ('./query.js');
+    query = require ('./query.js');
 
     console.log('app.js loaded');
 
@@ -354,7 +354,7 @@ function loadNetworkData(from) {
         "value='$dateadd(-00:15:00)' />" +
         "<LT name='AdvertisedTimeAtLocation' " +
 //      "value='$dateadd(" + hours + ":00:00)' />" +
-        "value='$dateadd(24:00:00)' />" +
+        "value='$dateadd(96:00:00)' />" +
         "</AND>" +
         "<GT name='EstimatedTimeAtLocation' value='$now' />" +
         "</OR>" +
@@ -411,7 +411,7 @@ function getStoredResponse(from, to, hours) {
     var now = new Date;
     var hoursToMsecs = hours * (60 * 60 * 1000);
     var future24h = 0;
-    if(lockr.get(from)) { future24h = new Date(lockr.get(from).date).getTime() + (24 * 60 * 60 * 1000) };
+    if(lockr.get(from)) { future24h = new Date(lockr.get(from).date).getTime() + (96 * 60 * 60 * 1000) };
 
     if(future24h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
         loadNetworkData(from).then(function(res){
@@ -456,13 +456,30 @@ function filterResponse(res, to, hours) {
   
 function renderTrainAnnouncement(announcement) {
     var Sts = lockr.get('stations');
+    var mnth = new Array();
+    mnth[0] = "Jan";
+    mnth[1] = "Feb";
+    mnth[2] = "Mar";
+    mnth[3] = "Apr";
+    mnth[4] = "May";
+    mnth[5] = "Jun";
+    mnth[6] = "Jul";
+    mnth[7] = "Aug";
+    mnth[8] = "Sep";
+    mnth[9] = "Oct";
+    mnth[10] = "Nov";
+    mnth[11] = "Dec";
+        
+    
     console.log('announcement.length: ' + announcement.length);
     if(announcement.length === 0) {messageDisplay2("No results found")} else {messageDisplay2("")};
     $(announcement).each(function (iterator, item) {
         var advertisedtime = new Date(item.AdvertisedTimeAtLocation);
-        var hours = advertisedtime.getHours()
-        var minutes = advertisedtime.getMinutes()
-        if (minutes < 10) minutes = "0" + minutes
+        var month = mnth[advertisedtime.getMonth()];
+        var day = advertisedtime.getDate();
+        var hours = advertisedtime.getHours();
+        var minutes = advertisedtime.getMinutes();
+        if (minutes < 10) minutes = "0" + minutes;
         var toList = new Array();
         $(item.ToLocation).each(function (iterator, toItem) {
             for (var i = 0; i < Sts.length; i++) {
@@ -474,9 +491,7 @@ function renderTrainAnnouncement(announcement) {
         var owner = "";
         if (item.InformationOwner != null) owner = item.InformationOwner;
         jQuery("#timeTableDeparture tr:last").
-            after("<tr><td>" + hours + ":" + minutes + "</td><td>" + toList.join(', ') +
-                  "</td><td>" + owner + "</td><td style='text-align: center'>" + item.TrackAtLocation +
-                  "</td></tr>");
+            after("<tr><td>" + month + " " + day + "</td><td>" + hours + ":" + minutes + "</td><td>" + "</td><td>" + toList.join(', ') + "</td><td>" + item.TrackAtLocation + "</td></tr>");
     });
 }
 

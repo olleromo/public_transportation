@@ -1,7 +1,7 @@
 (function ($) {
 
     lockr = require ('lockr');
-    javascript_search = require ('./query.js');
+    query = require ('./query.js');
 
     console.log('app.js loaded');
 
