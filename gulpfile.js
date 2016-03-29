@@ -1,11 +1,21 @@
 "use strict";
 
 var gulp = require('gulp');
+<<<<<<< HEAD
 var browserify = require('browserify'); 
 var uglify = require('gulp-uglify');
 var source = require('vinyl-source-stream'); 
 var lint = require('gulp-eslint'); 
 var sass = require('gulp-sass'); 
+=======
+var browserify = require('browserify'); // Bundles JS
+//var transform = require('vinyl-transform');
+//var uglify = require('gulp-uglify');
+var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
+//var concat = require('gulp-concat'); //Concatenates files
+var lint = require('gulp-eslint'); //Lint JS files, including JSX
+var sass = require('gulp-sass'); //sass
+>>>>>>> 92b7a3277c105481a8646689e2f5a57c2b4eb69c
 var browserSync = require('browser-sync').create();
 var modernizr = require('gulp-modernizr');
 var touch = require("touch");
@@ -51,7 +61,7 @@ gulp.task('js', function() {
 	.pipe(gulp.dest(config.paths.dist + '/js'));
          console.log("js done");
 });
-
+ 
 gulp.task('js-minify', function() {
     gulp.src(config.paths.dist + '/js/*')
         .pipe(minify({
