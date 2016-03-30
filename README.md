@@ -25,7 +25,7 @@ The 'clj.server=>' part is the prompt you should be seeing.
 
 Now - if the stars align - there is a server running on port 3000.
 
-But, much simpler: you can see what it does if you go to [http://107.170.163.81:3000/] (http://107.170.163.81:3000/)
+
 
 
 
