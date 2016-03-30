@@ -351,9 +351,9 @@ function loadNetworkData(from) {
             "<OR>" +
               "<AND>" +
                 "<GT name='AdvertisedTimeAtLocation' " + "value='$dateadd(-00:15:00)' />" +
-                "<LT name='AdvertisedTimeAtLocation' " + "value='$dateadd(24:00:00)' />" +
+                "<LT name='AdvertisedTimeAtLocation' " + "value='$dateadd(96:00:00)' />" +
               "</AND>" +
-              "<GT name='EstimatedTimeAtLocation'" + "value='$dateadd(-00:15:00)'/>" +
+              "<GT name='EstimatedTimeAtLocation' " + "value='$dateadd(-00:15:00)'/>" +
             "</OR>" +
             "<EQ name='LocationSignature' value='" + from + "' />" +
             "<EQ name='ActivityType' value='Avgang' />" +
@@ -407,7 +407,7 @@ function getStoredResponse(from, to, hours) {
     var now = new Date;
     var hoursToMsecs = hours * (60 * 60 * 1000);
     var future96h = 0;
-    if(lockr.get(from)) { future96h = new Date(lockr.get(from).date).getTime() + (24 * 60 * 60 * 1000) };
+    if(lockr.get(from)) { future96h = new Date(lockr.get(from).date).getTime() + (96 * 60 * 60 * 1000) };
 
     if(future96h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
         loadNetworkData(from).then(function(res){
