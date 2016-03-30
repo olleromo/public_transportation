@@ -149,30 +149,26 @@ function fillSearchWidget(data) {
 
 function loadNetworkData(from) {
     // Request to load announcements for a station by its signature
-    var xmlRequest = "<REQUEST version='1.0'>" +
+    var xmlRequest =
+        "<REQUEST version='1.0'>" +
         "<LOGIN authenticationkey='668a9ad34dfb4736880a8ce55c9a5f38' />" +
-        "<QUERY objecttype='TrainAnnouncement' " +
-        "orderby='AdvertisedTimeAtLocation' >" +
+        "<QUERY objecttype='TrainAnnouncement' " + "orderby='AdvertisedTimeAtLocation' >" +
         "<FILTER>" +
-        "<AND>" +
-        "<OR>" +
-        "<AND>" +
-        "<GT name='AdvertisedTimeAtLocation' " +
-        "value='$dateadd(-00:15:00)' />" +
-        "<LT name='AdvertisedTimeAtLocation' " +
-//      "value='$dateadd(" + hours + ":00:00)' />" +
-        "value='$dateadd(96:00:00)' />" +
-        "</AND>" +
-        "<GT name='EstimatedTimeAtLocation' value='$now' />" +
-        "</OR>" +
-        "<EQ name='LocationSignature' value='" + from + "' />" +
-        "<EQ name='ActivityType' value='Avgang' />" +
-//      "<EQ name='ToLocation' value='" + to + "' />" +
-        "</AND>" +
+          "<AND>" +
+            "<OR>" +
+              "<AND>" +
+                "<GT name='AdvertisedTimeAtLocation' " + "value='$dateadd(-00:15:00)' />" +
+                "<LT name='AdvertisedTimeAtLocation' " + "value='$dateadd(24:00:00)' />" +
+              "</AND>" +
+              "<GT name='EstimatedTimeAtLocation'" + "value='$dateadd(-00:15:00)'/>" +
+            "</OR>" +
+            "<EQ name='LocationSignature' value='" + from + "' />" +
+            "<EQ name='ActivityType' value='Avgang' />" +
+          "</AND>" +
         "</FILTER>" +
-        // Just include wanted fields to reduce response size.
         "<INCLUDE>InformationOwner</INCLUDE>" +
         "<INCLUDE>AdvertisedTimeAtLocation</INCLUDE>" +
+        "<INCLUDE>EstimatedTimeAtLocation</INCLUDE>" +
         "<INCLUDE>TrackAtLocation</INCLUDE>" +
         "<INCLUDE>FromLocation</INCLUDE>" +
         "<INCLUDE>ToLocation</INCLUDE>" +
@@ -217,10 +213,10 @@ function getStoredResponse(from, to, hours) {
     var res = lockr.get(from);
     var now = new Date;
     var hoursToMsecs = hours * (60 * 60 * 1000);
-    var future24h = 0;
-    if(lockr.get(from)) { future24h = new Date(lockr.get(from).date).getTime() + (96 * 60 * 60 * 1000) };
+    var future96h = 0;
+    if(lockr.get(from)) { future96h = new Date(lockr.get(from).date).getTime() + (24 * 60 * 60 * 1000) };
 
-    if(future24h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
+    if(future96h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
         loadNetworkData(from).then(function(res){
             saveResponse(from, res);
             console.log('rendering from network');
@@ -282,11 +278,17 @@ function renderTrainAnnouncement(announcement) {
     if(announcement.length === 0) {messageDisplay2("No results found")} else {messageDisplay2("")};
     $(announcement).each(function (iterator, item) {
         var advertisedtime = new Date(item.AdvertisedTimeAtLocation);
-        var month = mnth[advertisedtime.getMonth()];
-        var day = advertisedtime.getDate();
-        var hours = advertisedtime.getHours();
-        var minutes = advertisedtime.getMinutes();
-        if (minutes < 10) minutes = "0" + minutes;
+        var amonth = mnth[advertisedtime.getMonth()];
+        var aday = advertisedtime.getDate();
+        var ahours = advertisedtime.getHours();
+        var aminutes = advertisedtime.getMinutes();
+        var estimatedtime = new Date(item.EstimatedTimeAtLocation);
+
+        console.log('estimated time at location: ' + item.EstimatedTimeAtLocation);
+        
+        var ehours = estimatedtime.getHours();
+        var eminutes = estimatedtime.getMinutes();
+        if (aminutes < 10) aminutes = "0" + aminutes;
         var toList = new Array();
         $(item.ToLocation).each(function (iterator, toItem) {
             for (var i = 0; i < Sts.length; i++) {
@@ -298,7 +300,7 @@ function renderTrainAnnouncement(announcement) {
         var owner = "";
         if (item.InformationOwner != null) owner = item.InformationOwner;
         jQuery("#timeTableDeparture tr:last").
-            after("<tr><td>" + month + " " + day + "</td><td>" + hours + ":" + minutes + "</td><td>" + "</td><td>" + toList.join(', ') + "</td><td>" + item.TrackAtLocation + "</td></tr>");
+            after("<tr><td>" + amonth + " " + aday + "</td><td>" + ahours + ":" + aminutes + "</td><td>" + ahours + ":" + aminutes +   "</td><td>" + toList.join(', ') + "</td><td>" + item.TrackAtLocation + "</td></tr>");
     });
 }
 
