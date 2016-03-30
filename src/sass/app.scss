@@ -1,11 +1,11 @@
-@import "/Users/or/UDACITY/public_transportation/node_modules/foundation-sites/scss/settings/_settings.scss";
+@import "node_modules/foundation-sites/scss/settings/_settings.scss";
 /* @import "settings"; */
 @import "foundation";
 
 .headroom {
     margin: 15px 0 0 0;
 }
-
+ 
 .centered {
     text-align: center;
 }
@@ -18,4 +18,4 @@
 
 .ui-helper-hidden-accessible {
     display: none;
-}
+} 

@@ -64,19 +64,16 @@ gulp.task('js-minify', function() {
 gulp.task('sass', function() {
     gulp.src(config.paths.sass)
         .pipe(sass({
-            includePaths: ['node_modules/foundation-sites/assets/',
-                           'node_modules/foundation-sites/scss/settings/',
-                          'node_modules/foundation-sites/scss/']}))
+            includePaths: ['node_modules/foundation-sites/assets',
+                           'node_modules/foundation-sites/scss/settings',
+                          'node_modules/foundation-sites/scss']}))
         .pipe(gulp.dest(config.paths.dist + '/css'));
+    console.log('sass has done its thing');
 });
 
 gulp.task('css-minify', function() {
-  return gulp.src(config.paths.dist + '/css/*.css')
-        .pipe(cleanCSS({compatibility: 'ie8',
-                        debug: true}, function(details){
-                            console.log(details.name + ': ' + details.stats.originalSize);
-                            console.log(details.name + ': ' + details.stats.minifiedSize);
-                        }))
+  return gulp.src(config.paths.dist + '/css/app.css')
+        .pipe(cleanCSS())
         .pipe(gulp.dest(config.paths.dist + '/css/min'));
 });
 
@@ -98,7 +95,8 @@ gulp.task('lint', function() {
 gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint', 'js-minify']);
-    gulp.watch(config.paths.sass, ['sass', 'css-minify']);
+    gulp.watch(config.paths.sass, ['sass']);
+    gulp.watch(config.paths.dist + '/css/app.css', ['css-minify']);
 });
 
 gulp.task('default', ['html', 'js', 'sass', 'images', 'lint', 'js-minify', 'css-minify', 'watch', 'serve']);
