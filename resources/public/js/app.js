@@ -201,7 +201,6 @@ $(document).ready(function () {
             url: "http://api.trafikinfo.trafikverket.se/v1/data.json",
             error: function (msg) {
                 if (msg.statusText == "abort") return;
-                //                alert("Request failed: " + msg.statusText + "\n" + msg.responseText);
                 messageDisplay("No network connection");
             }
         });
@@ -302,7 +301,6 @@ function fillSearchWidget(data) {
         },
         create: function (e) {
             $(this).prev('.ui-helper-hidden-accessible').remove();
-    //        console.log('trying to remove');
         }
     });
 
@@ -334,7 +332,6 @@ function fillSearchWidget(data) {
         },
         create: function (e) {
             $(this).prev('.ui-helper-hidden-accessible').remove();
-  //          console.log('trying to remove');
         }
     });
 }
@@ -351,9 +348,12 @@ function loadNetworkData(from) {
             "<OR>" +
               "<AND>" +
                 "<GT name='AdvertisedTimeAtLocation' " + "value='$dateadd(-00:15:00)' />" +
-                "<LT name='AdvertisedTimeAtLocation' " + "value='$dateadd(96:00:00)' />" +
+                "<LT name='AdvertisedTimeAtLocation' " + "value='$dateadd(48:00:00)' />" +
               "</AND>" +
-              "<GT name='EstimatedTimeAtLocation' " + "value='$dateadd(-00:15:00)'/>" +
+              "<AND>" +
+                "<GT name='EstimatedTimeAtLocation' " + "value='$dateadd(-00:15:00)'/>" +
+                "<LT name='EstimatedTimeAtLocation' " + "value='$dateadd(48:00:00)'/>" +        
+              "</AND>" +
             "</OR>" +
             "<EQ name='LocationSignature' value='" + from + "' />" +
             "<EQ name='ActivityType' value='Avgang' />" +
@@ -361,10 +361,10 @@ function loadNetworkData(from) {
         "</FILTER>" +
         "<INCLUDE>InformationOwner</INCLUDE>" +
         "<INCLUDE>AdvertisedTimeAtLocation</INCLUDE>" +
-        "<INCLUDE>EstimatedTimeAtLocation</INCLUDE>" +
         "<INCLUDE>TrackAtLocation</INCLUDE>" +
         "<INCLUDE>FromLocation</INCLUDE>" +
         "<INCLUDE>ToLocation</INCLUDE>" +
+        "<INCLUDE>EstimatedTimeAtLocation</INCLUDE>" +
         "</QUERY>" +
         "</REQUEST>";
     
@@ -401,15 +401,13 @@ window.Search = function Search() {
 };
 
 function getStoredResponse(from, to, hours) {
-//    Offline.check();
-//    console.log('offline is: ' + Offline.state);
     var res = lockr.get(from);
     var now = new Date;
     var hoursToMsecs = hours * (60 * 60 * 1000);
-    var future96h = 0;
-    if(lockr.get(from)) { future96h = new Date(lockr.get(from).date).getTime() + (96 * 60 * 60 * 1000) };
+    var future48h = 0;
+    if(lockr.get(from)) { future48h = new Date(lockr.get(from).date).getTime() + (48 * 60 * 60 * 1000) };
 
-    if(future96h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
+    if(future48h - (now.getTime() + hoursToMsecs) < 0) { // TODO also account for empty lockr
         loadNetworkData(from).then(function(res){
             saveResponse(from, res);
             console.log('rendering from network');
@@ -465,9 +463,7 @@ function renderTrainAnnouncement(announcement) {
     mnth[9] = "Oct";
     mnth[10] = "Nov";
     mnth[11] = "Dec";
-        
     
-    console.log('announcement.length: ' + announcement.length);
     if(announcement.length === 0) {messageDisplay2("No results found")} else {messageDisplay2("")};
     $(announcement).each(function (iterator, item) {
         var advertisedtime = new Date(item.AdvertisedTimeAtLocation);
@@ -477,11 +473,11 @@ function renderTrainAnnouncement(announcement) {
         var aminutes = advertisedtime.getMinutes();
         var estimatedtime = new Date(item.EstimatedTimeAtLocation);
 
-        console.log('estimated time at location: ' + item.EstimatedTimeAtLocation);
-        
-        var ehours = estimatedtime.getHours();
-        var eminutes = estimatedtime.getMinutes();
+        var ehours = estimatedtime.getHours() ? estimatedtime.getHours() : ahours;
+        var eminutes = estimatedtime.getMinutes() ? estimatedtime.getMinutes() : aminutes;
         if (aminutes < 10) aminutes = "0" + aminutes;
+        if (eminutes < 10) eminutes = "0" + eminutes;
+        
         var toList = new Array();
         $(item.ToLocation).each(function (iterator, toItem) {
             for (var i = 0; i < Sts.length; i++) {
@@ -492,8 +488,13 @@ function renderTrainAnnouncement(announcement) {
 
         var owner = "";
         if (item.InformationOwner != null) owner = item.InformationOwner;
+        
         jQuery("#timeTableDeparture tr:last").
-            after("<tr><td>" + amonth + " " + aday + "</td><td>" + ahours + ":" + aminutes + "</td><td>" + ahours + ":" + aminutes +   "</td><td>" + toList.join(', ') + "</td><td>" + item.TrackAtLocation + "</td></tr>");
+            after("<tr><td>" + amonth + " " + aday +
+                  "</td><td>" + ahours + ":" + aminutes +
+                  "</td><td>" + ehours + ":" + eminutes +
+                  "</td><td>" + toList.join(', ') +
+                  "</td><td>" + item.TrackAtLocation + "</td></tr>");
     });
 }
 
@@ -504,8 +505,6 @@ function messageDisplay(str) {
 function messageDisplay2(str) {
     $("#messagedisplay2").text(str);
 }
-
-
 
 
 
